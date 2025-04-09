@@ -1,5 +1,5 @@
 import "./test.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import githubLogo from "../../assets/githubLogo.svg";
 import resumeSymbol from "../../assets/resumeSymbol.svg";
 import profilePic from "../../assets/profilePic.png";
@@ -56,6 +56,23 @@ function Homepage() {
   const [selectedSkill, setSelectedSkill] = useState();
   const [showSkillPopup, setShowSkillPopup] = useState(false);
   const closePopup = () => setShowSkillPopup(false);
+  //   useEffect(() => {
+  //     const handleScroll = () => {
+  //       if (window.scrollY === 0) {
+  //         const navbar = document.getElementById()
+  //         document.body.classList.add("at-top");
+  //       } else {
+  //         document.body.classList.remove("at-top");
+  //       }
+  //     };
+
+  //     window.addEventListener("scroll", handleScroll);
+
+  //     return () => {
+  //       window.removeEventListener("scroll", handleScroll);
+  //     };
+  //   }, []);
+
   return (
     <div class="homepage">
       <div class="header-card">
@@ -99,13 +116,17 @@ function Homepage() {
         </h1>
         <div id="mainBox">
           <div class="about-me-box">
-            <div class="description">
-              <img style={{ height: "100px" }} src={lfLogo} />
-              Part-time STEM Course Instructor at Logic Fusion
+            <div class="wrapper-box">
+              <div class="description">
+                <img style={{ height: "100px" }} src={lfLogo} />
+                Part-time STEM Course Instructor at Logic Fusion
+              </div>
             </div>
-            <div class="description">
-              <img style={{ height: "100px" }} src={mhirjLogo} />
-              Software Developer Intern at MHI RJ
+            <div class="wrapper-box">
+              <div class="description">
+                <img style={{ height: "100px" }} src={mhirjLogo} />
+                Software Developer Intern at MHI RJ
+              </div>
             </div>
           </div>
 
@@ -113,21 +134,30 @@ function Homepage() {
             {showSkillPopup ? (
               <div class="overlay-container">
                 <div class="overlay">
-                  <img
-                    class="techs"
-                    src={
-                      skillLogos[`../../assets/icons/${selectedSkill}.svg`]
-                        .default
-                    }
-                    alt={`Asset ${selectedSkill}.svg`}
-                  />
-                  <h2 class="skill-title">{selectedSkill.toUpperCase()}</h2>
-                  <div class="skill-description">
-                    {technologyDescriptions[selectedSkill]}
+                  <div>
+                    <img
+                      class="techs"
+                      src={
+                        skillLogos[`../../assets/icons/${selectedSkill}.svg`]
+                          .default
+                      }
+                      alt={`Asset ${selectedSkill}.svg`}
+                    />
                   </div>
-                  <button class="skill-button" onClick={closePopup}>
-                    Close
-                  </button>
+                  <div>
+                    <h2 class="skill-title">{selectedSkill.toUpperCase()}</h2>
+                  </div>
+                  <div>
+                    <div class="skill-description">
+                      {technologyDescriptions[selectedSkill]}
+                    </div>
+                  </div>
+
+                  <div>
+                    <button class="skill-button" onClick={closePopup}>
+                      Close
+                    </button>
+                  </div>
                 </div>
               </div>
             ) : (
@@ -148,13 +178,17 @@ function Homepage() {
             )}
           </div>
           <div class="about-me-box">
-            <div class="description">
-              <img class="image-items" src={ibLogo} />
-              IB DP Graduate{" "}
+            <div class="wrapper-box">
+              <div class="description">
+                <img class="image-items" src={ibLogo} />
+                IB DP Graduate{" "}
+              </div>
             </div>
-            <div class="description">
-              <img class="image-items" src={uniLogo} />
-              4th Year Software Engineering
+            <div class="wrapper-box">
+              <div class="description">
+                <img class="image-items" src={uniLogo} />
+                4th Year Software Engineering
+              </div>
             </div>
           </div>
         </div>
