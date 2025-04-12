@@ -44,18 +44,40 @@ const technologyDescriptions = {
 const skillLogos = import.meta.glob("../../assets/icons/*.svg", {
   eager: true,
 });
+
+const projectPictures = import.meta.glob("../../assets/projects/*.png", {
+  eager: true,
+});
 const fileNames = Object.keys(skillLogos).map((path) => {
   const parts = path.split("/");
   return parts[parts.length - 1].slice(0, -4);
 });
-console.log(skillLogos);
+// console.log(skillLogos);
 
-const imageList = Object.values(skillLogos);
-console.log(fileNames);
+const projectImagesJson = Object.keys(projectPictures).flatMap((path) => {
+  const parts = path.split("/");
+  return {
+    [parts[parts.length - 1].slice(0, -4)]: projectPictures[path].default,
+  };
+});
+const projectImages = Object.assign({}, ...projectImagesJson);
+const imageIconsList = Object.values(skillLogos);
+
+// console.log(fileNames);
 function Homepage() {
   const [selectedSkill, setSelectedSkill] = useState();
   const [showSkillPopup, setShowSkillPopup] = useState(false);
+  const [projects, setProjects] = useState(null);
   const closePopup = () => setShowSkillPopup(false);
+  useEffect(() => {
+    fetch("https://api.github.com/users/Yanny24211/repos")
+      .then((res) => res.json())
+      .then((data) => {
+        const portfolioItems = data.filter((item) => item.topics[0]);
+        setProjects(portfolioItems);
+        console.log(portfolioItems);
+      });
+  }, []);
   //   useEffect(() => {
   //     const handleScroll = () => {
   //       if (window.scrollY === 0) {
@@ -82,7 +104,7 @@ function Homepage() {
             Yanny Patel
           </div>
           <div>
-            <ul className="navbar-items">
+            <ul class="navbar-items">
               <li class="navbar-item">
                 <img src={githubLogo} alt="github logo" />
                 <a href="https://github.com/Yanny24211" target="_blank">
@@ -162,7 +184,7 @@ function Homepage() {
               </div>
             ) : (
               <div class="skills">
-                {imageList.map((img, i) => (
+                {imageIconsList.map((img, i) => (
                   <img
                     onClick={() => {
                       setSelectedSkill(fileNames[i]);
@@ -194,7 +216,32 @@ function Homepage() {
         </div>
       </div>
       <div id="projects" class="header-card">
-        <h1 class="page-header">Projects</h1>
+        <h1 id="projectsPage" class="page-header">
+          Projects
+        </h1>
+        <div class="project-container">
+          {projects ? (
+            projects.map((item) => (
+              <div class="project-item">
+                <div class="project-description">
+                  <div class="project-title">{item.name}</div>
+                  <div class="project-txt">{item.description}</div>
+                </div>
+                <div class="project-img-container">
+                  <a href={item.html_url} target="_blank">
+                    <img
+                      class="project-img"
+                      src={projectImages[item.name]}
+                      alt={item.name}
+                    />
+                  </a>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div>nun here lol mf</div>
+          )}
+        </div>
       </div>
     </div>
   );
