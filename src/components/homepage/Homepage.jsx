@@ -2,6 +2,7 @@ import "./test.css";
 import { useEffect, useState } from "react";
 import githubLogo from "../../assets/githubLogo.svg";
 import resumeSymbol from "../../assets/resumeSymbol.svg";
+import linkedInSymbol from "../../assets/linkedin.svg";
 import profilePic from "../../assets/profilePic.png";
 import uniLogo from "../../assets/TMU_logo.png";
 import ibLogo from "../../assets/ibLogo.png";
@@ -112,6 +113,15 @@ function Homepage() {
                 </a>
               </li>
               <li class="navbar-item">
+                <img src={linkedInSymbol} alt="linkedin symbol" />
+                <a
+                  href="https://www.linkedin.com/in/yanny-patel/"
+                  target="_blank"
+                >
+                  LinkedIn
+                </a>
+              </li>
+              <li class="navbar-item">
                 <img src={resumeSymbol} alt="resume symbol" />
                 <a
                   href="https://drive.google.com/file/d/1puWHTjAEJFg4j-FYNOFcIBdgTg3By_zj/view?usp=sharing"
@@ -163,6 +173,7 @@ function Homepage() {
                         skillLogos[`../../assets/icons/${selectedSkill}.svg`]
                           .default
                       }
+                      onClick={closePopup}
                       alt={`Asset ${selectedSkill}.svg`}
                     />
                   </div>
