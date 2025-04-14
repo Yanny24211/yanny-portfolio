@@ -70,6 +70,7 @@ function Homepage() {
   const [showSkillPopup, setShowSkillPopup] = useState(false);
   const [projects, setProjects] = useState(null);
   const closePopup = () => setShowSkillPopup(false);
+  const [atTop, setAtTop] = useState(true);
   useEffect(() => {
     fetch("https://api.github.com/users/Yanny24211/repos")
       .then((res) => res.json())
@@ -79,32 +80,38 @@ function Homepage() {
         console.log(portfolioItems);
       });
   }, []);
-  //   useEffect(() => {
-  //     const handleScroll = () => {
-  //       if (window.scrollY === 0) {
-  //         const navbar = document.getElementById()
-  //         document.body.classList.add("at-top");
-  //       } else {
-  //         document.body.classList.remove("at-top");
-  //       }
-  //     };
 
-  //     window.addEventListener("scroll", handleScroll);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY === 0) {
+        setAtTop(true);
+      } else {
+        setAtTop(false);
+      }
+    };
 
-  //     return () => {
-  //       window.removeEventListener("scroll", handleScroll);
-  //     };
-  //   }, []);
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <div class="homepage">
       <div class="header-card">
-        <div class="navbar">
+        <div
+          style={{
+            height: atTop ? "110px" : "100px",
+            transition: "all 0.5s ease-in-out",
+          }}
+          class="navbar"
+        >
           <div class="title-card">
             <img id="profilePic" src={profilePic} alt="profile photo" />
             Yanny Patel
           </div>
-          <div>
+          <div className="link-items">
             <ul class="navbar-items">
               <li class="navbar-item">
                 <img src={githubLogo} alt="github logo" />
