@@ -224,7 +224,7 @@
     align-items: center;
  }
  .overlay{
-    height: 80%;
+    height: 90%;
     margin: 10px; 
     border-radius: 10px; 
     background-color: #49c0f6;
@@ -244,7 +244,7 @@
     color:black;
     font-family: monospace;
     margin: 0px 15px; 
-    font-size: 15px; 
+    font-size: 20px; 
 
  }
  .skill-title{
@@ -262,6 +262,7 @@
     height: 40px; 
     width: 100px;
     border-radius: 5px;
+    text-align: center;
     text-transform: uppercase;  
     font-weight: bold;
     font-size: 25px;
