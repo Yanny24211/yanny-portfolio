@@ -1,13 +1,17 @@
 import "./test.css";
 import { useEffect, useState } from "react";
-import githubLogo from "../../assets/githubLogo.svg";
-import resumeSymbol from "../../assets/resumeSymbol.svg";
-import linkedInSymbol from "../../assets/linkedin.svg";
+import githubLogoWhite from "../../assets/githubLogoWhite.svg";
+import githubLogoBlack from "../../assets/githubLogoBlack.svg";
+import resumeSymbolWhite from "../../assets/resumeSymbolWhite.svg";
+import resumeSymbolBlack from "../../assets/resumeSymbolBlack.svg";
+import linkedInSymbolBlack from "../../assets/linkedinBlack.svg";
+import linkedInSymbolWhite from "../../assets/linkedinWhite.svg";
 import profilePic from "../../assets/profilePic.png";
 import uniLogo from "../../assets/TMU_logo.png";
 import ibLogo from "../../assets/ibLogo.png";
 import lfLogo from "../../assets/logicFusionLogo.png";
 import mhirjLogo from "../../assets/mhirj.png";
+const WINDOW_WIDTH = 1920;
 const technologyDescriptions = {
   arduino:
     "An open-source electronics platform based on simple hardware and flexible software, ideal for rapid prototyping of IoT devices and embedded systems. Arduino empowers developers to bring interactive physical computing projects to life using sensors, actuators, and microcontrollers.",
@@ -68,6 +72,9 @@ const imageIconsList = Object.values(skillLogos);
 function Homepage() {
   const [selectedSkill, setSelectedSkill] = useState();
   const [showSkillPopup, setShowSkillPopup] = useState(false);
+  const [screenSmall, setScreenSmall] = useState(
+    window.innerWidth > WINDOW_WIDTH * 0.5,
+  );
   const [projects, setProjects] = useState(null);
   const closePopup = () => setShowSkillPopup(false);
   const [atTop, setAtTop] = useState(true);
@@ -82,6 +89,58 @@ function Homepage() {
   }, []);
 
   useEffect(() => {
+    document.querySelectorAll(".navbar-item").forEach((li) => {
+      const img = li.querySelector("img");
+      if (img.alt === "github-logo") {
+        li.addEventListener("mouseenter", () => {
+          img.style.opacity = 0;
+          setTimeout(() => {
+            img.src = githubLogoBlack;
+            img.style.opacity = 1;
+          }, 100);
+        });
+        li.addEventListener("mouseleave", () => {
+          img.style.opacity = 0;
+          setTimeout(() => {
+            img.src = githubLogoWhite;
+            img.style.opacity = 1;
+          }, 100);
+        });
+      } else if (img.alt === "linkedin-symbol") {
+        li.addEventListener("mouseenter", () => {
+          img.style.opacity = 0;
+          setTimeout(() => {
+            img.src = linkedInSymbolBlack;
+            img.style.opacity = 1;
+          }, 100);
+        });
+        li.addEventListener("mouseleave", () => {
+          img.style.opacity = 0;
+          setTimeout(() => {
+            img.src = linkedInSymbolWhite;
+            img.style.opacity = 1;
+          }, 100);
+        });
+      } else if (img.alt === "resume-symbol") {
+        li.addEventListener("mouseenter", () => {
+          img.style.opacity = 0;
+          setTimeout(() => {
+            img.src = resumeSymbolBlack;
+            img.style.opacity = 1;
+          }, 100);
+        });
+        li.addEventListener("mouseleave", () => {
+          img.style.opacity = 0;
+          setTimeout(() => {
+            img.src = resumeSymbolWhite;
+            img.style.opacity = 1;
+          }, 100);
+        });
+      }
+    });
+  }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY === 0) {
         setAtTop(true);
@@ -89,11 +148,18 @@ function Homepage() {
         setAtTop(false);
       }
     };
-
+    const handleResize = () => {
+      const isBig = window.innerWidth > WINDOW_WIDTH * 0.5;
+      setScreenSmall(isBig);
+    };
+    console.log(window.innerWidth > WINDOW_WIDTH * 0.5);
+    console.log(window.innerWidth);
     window.addEventListener("scroll", handleScroll);
-
+    window.addEventListener("resize", handleResize);
+    handleResize();
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -108,33 +174,33 @@ function Homepage() {
           class="navbar"
         >
           <div class="title-card">
-            <img id="profilePic" src={profilePic} alt="profile photo" />
-            Yanny Patel
+            <img id="profilePic" src={profilePic} alt="profile-photo" />
+            {screenSmall && "Yanny Patel"}
           </div>
           <div className="link-items">
             <ul class="navbar-items">
               <li class="navbar-item">
-                <img src={githubLogo} alt="github logo" />
                 <a href="https://github.com/Yanny24211" target="_blank">
-                  Github
+                  <img src={githubLogoWhite} alt="github-logo" />
+                  {screenSmall && "Github"}
                 </a>
               </li>
               <li class="navbar-item">
-                <img src={linkedInSymbol} alt="linkedin symbol" />
                 <a
                   href="https://www.linkedin.com/in/yanny-patel/"
                   target="_blank"
                 >
-                  LinkedIn
+                  <img src={linkedInSymbolWhite} alt="linkedin-symbol" />
+                  {screenSmall && "LinkedIn"}
                 </a>
               </li>
               <li class="navbar-item">
-                <img src={resumeSymbol} alt="resume symbol" />
                 <a
                   href="https://drive.google.com/file/d/1puWHTjAEJFg4j-FYNOFcIBdgTg3By_zj/view?usp=sharing"
                   target="_blank"
                 >
-                  Resume
+                  <img src={resumeSymbolWhite} alt="resume-symbol" />
+                  {screenSmall && "Resume"}
                 </a>
               </li>
             </ul>
@@ -157,7 +223,7 @@ function Homepage() {
           <div class="about-me-box">
             <div class="wrapper-box">
               <div class="description">
-                <img style={{ height: "100px" }} src={lfLogo} />
+                <img style={{ height: "5vh" }} src={lfLogo} />
                 Part-time STEM Course Instructor at Logic Fusion
               </div>
             </div>
@@ -240,7 +306,7 @@ function Homepage() {
         <div class="project-container">
           {projects ? (
             projects.map((item) => (
-              <div class="project-item">
+              <div key={item.name} class="project-item">
                 <div class="project-description">
                   <div class="project-title">{item.name}</div>
                   <div class="project-txt">{item.description}</div>
