@@ -1,5 +1,6 @@
 import "./test.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import * as THREE from "three";
 import githubLogoWhite from "../../assets/githubLogoWhite.svg";
 import githubLogoBlack from "../../assets/githubLogoBlack.svg";
 import resumeSymbolWhite from "../../assets/resumeSymbolWhite.svg";
@@ -11,6 +12,7 @@ import uniLogo from "../../assets/TMU_logo.png";
 import ibLogo from "../../assets/ibLogo.png";
 import lfLogo from "../../assets/logicFusionLogo.png";
 import mhirjLogo from "../../assets/mhirj.png";
+import { OrbitControls, Wireframe } from "three/examples/jsm/Addons.js";
 const WINDOW_WIDTH = 1920;
 const technologyDescriptions = {
   arduino:
@@ -75,6 +77,8 @@ function Homepage() {
   const [screenSmall, setScreenSmall] = useState(
     window.innerWidth > WINDOW_WIDTH * 0.5,
   );
+
+  const canvasRef = useRef(null);
   const [projects, setProjects] = useState(null);
   const closePopup = () => setShowSkillPopup(false);
   const [atTop, setAtTop] = useState(true);
@@ -86,6 +90,74 @@ function Homepage() {
         setProjects(portfolioItems);
         console.log(portfolioItems);
       });
+  }, []);
+
+  useEffect(() => {
+    if (!canvasRef.current) return;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      document.documentElement.clientWidth /
+        document.documentElement.clientHeight,
+      0.1,
+      1000,
+    );
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas: canvasRef.current,
+    });
+
+    const ambientLight = new THREE.AmbientLight(0xffffff);
+
+    scene.add(ambientLight);
+
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(
+      document.documentElement.clientWidth,
+      document.documentElement.clientHeight,
+    );
+    camera.position.setZ(30);
+
+    renderer.render(scene, camera);
+
+    const geometry = screenSmall
+      ? new THREE.TorusGeometry(12, 3, 16, 100)
+      : new THREE.TorusGeometry(8, 3, 10, 70);
+    const material = new THREE.MeshBasicMaterial({
+      color: 0x4caf50,
+      wireframe: true,
+    });
+    const torus = new THREE.Mesh(geometry, material);
+
+    scene.add(torus);
+
+    function animate() {
+      torus.rotation.x += 0.01;
+      torus.rotation.y += 0.03;
+      torus.rotation.z += 0.08;
+      renderer.render(scene, camera);
+    }
+    renderer.setAnimationLoop(animate);
+    const handleResize = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      const geometry = screenSmall
+        ? new THREE.TorusGeometry(12, 3, 16, 100)
+        : new THREE.TorusGeometry(8, 3, 10, 70);
+      torus.geometry = geometry;
+
+      renderer.setSize(width, height);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      renderer.dispose();
+    };
   }, []);
 
   useEffect(() => {
@@ -174,7 +246,16 @@ function Homepage() {
           class="navbar"
         >
           <div class="title-card">
-            <img id="profilePic" src={profilePic} alt="profile-photo" />
+            <img
+              style={{
+                backgroundColor: "#fff",
+                padding: "3px",
+                borderRadius: "30px",
+              }}
+              id="profilePic"
+              src={profilePic}
+              alt="profile-photo"
+            />
             {screenSmall && "Yanny Patel"}
           </div>
           <div className="link-items">
@@ -206,15 +287,21 @@ function Homepage() {
             </ul>
           </div>
         </div>
-        <div class="bg-gif">
-          <div class="name">Yanny Patel</div>
-          <div class="current-occupation">
-            <a id="about" href="#aboutMe">
-              About Me
-            </a>
+        <div className="canvas-container">
+          <canvas class="bg-canvas" ref={canvasRef}></canvas>
+          <div className="bg-container">
+            <div class="name">Yanny Patel</div>
+            <div class="current-occupation">
+              <a id="about" href="#aboutMe">
+                About Me
+              </a>
+            </div>
           </div>
         </div>
       </div>
+
+      <div className="background-graphics" id="img1"></div>
+
       <div id="aboutMe" class="header-card">
         <h1 id="skillsPage" class="page-header">
           Skills & Experiences
@@ -299,6 +386,9 @@ function Homepage() {
           </div>
         </div>
       </div>
+
+      {/* <div className="background-graphics" id="img2"></div> */}
+
       <div id="projects" class="header-card">
         <h1 id="projectsPage" class="page-header">
           Projects
@@ -327,6 +417,8 @@ function Homepage() {
           )}
         </div>
       </div>
+
+      <div className="background-graphics" id="img3"></div>
     </div>
   );
 }
