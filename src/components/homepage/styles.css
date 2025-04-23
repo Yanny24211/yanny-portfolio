@@ -20,12 +20,23 @@
 
 }
 #profilePic{
-    margin: 0 10px 0 0;
-    transition: all 0.3s ease-in-out;
+    background-color: #fff;
+    border-radius:30px;
+    transition: all 0.2s ease-in-out;
+    padding: 3px;
+}
+@keyframes rainbow {
+    from{
+        background-color: hsl(0, 100%, 100%);
+    }
+    to{
+        background-color: hsl(360, 100%, 50%);
+    }
 }
 #profilePic:hover{
-    
+    padding: 5px;
 }
+
 .current-occupation{
     display: flex; 
     justify-content: center;
@@ -119,6 +130,7 @@
     margin: 10px;
     font-size: 35px;;
 }
+
 .link-items{
     display:flex;
     align-items: center;
@@ -147,9 +159,12 @@
     font-weight: 800;
 }   
 .navbar-item{
-    height: 64px;
+    height: 68px;
     padding: 0px;
     margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .navbar-item > a{
     text-decoration: none; 
@@ -179,7 +194,7 @@
     flex-direction: column;
     width: 500px;
     height: 600px;
-    margin: 10px;
+    margin: 20px;
     border: solid 8px black;
     border-radius: 10px;
     overflow: auto;
@@ -206,13 +221,11 @@
     height: 100px;
 }
 #mainBox{
-    padding: 10px;
     display: flex; 
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;   
-    width: 95%;
     margin-bottom: 20px;
     height: 90%;
     overflow: auto;
@@ -440,6 +453,7 @@
     background-image: url("../../assets/image.png");
 }
 #img2{
+    height: 25%;
     background-image: url("../../assets/backgroundGraphic1.jpg");
     background-repeat: repeat;
 }

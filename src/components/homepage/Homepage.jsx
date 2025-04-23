@@ -1,4 +1,4 @@
-import "./test.css";
+import "./styles.css";
 import { useEffect, useState, useRef } from "react";
 import * as THREE from "three";
 import githubLogoWhite from "../../assets/githubLogoWhite.svg";
@@ -82,6 +82,10 @@ function Homepage() {
   const [projects, setProjects] = useState(null);
   const closePopup = () => setShowSkillPopup(false);
   const [atTop, setAtTop] = useState(true);
+  const navbarStyle = {
+    width: screenSmall ? "auto" : "68px",
+    borderRadius: screenSmall ? "10px" : "100px",
+  };
   useEffect(() => {
     fetch("https://api.github.com/users/Yanny24211/repos")
       .then((res) => res.json())
@@ -236,39 +240,45 @@ function Homepage() {
   }, []);
 
   return (
-    <div class="homepage">
-      <div class="header-card">
+    <div className="homepage">
+      <div className="header-card">
         <div
           style={{
             height: atTop ? "110px" : "100px",
             transition: "all 0.5s ease-in-out",
           }}
-          class="navbar"
+          className="navbar"
         >
-          <div class="title-card">
-            <img
+          <div className="title-card">
+            <div
               style={{
-                backgroundColor: "#fff",
-                padding: "3px",
-                borderRadius: "30px",
-                width: atTop ? "54px" : "48px",
-                height: atTop ? "54px" : "48px",
+                display: "flex",
+                justifyContent: "center",
+                width: "80px",
               }}
-              id="profilePic"
-              src={profilePic}
-              alt="profile-photo"
-            />
+            >
+              <img
+                style={{
+                  width: atTop ? "54px" : "48px",
+                  height: atTop ? "54px" : "48px",
+                }}
+                id="profilePic"
+                src={profilePic}
+                alt="profile-photo"
+              />
+            </div>
+
             {screenSmall && "Yanny Patel"}
           </div>
           <div className="link-items">
-            <ul class="navbar-items">
-              <li class="navbar-item">
+            <ul className="navbar-items">
+              <li style={navbarStyle} className="navbar-item">
                 <a href="https://github.com/Yanny24211" target="_blank">
                   <img src={githubLogoWhite} alt="github-logo" />
                   {screenSmall && "Github"}
                 </a>
               </li>
-              <li class="navbar-item">
+              <li style={navbarStyle} className="navbar-item">
                 <a
                   href="https://www.linkedin.com/in/yanny-patel/"
                   target="_blank"
@@ -277,7 +287,7 @@ function Homepage() {
                   {screenSmall && "LinkedIn"}
                 </a>
               </li>
-              <li class="navbar-item">
+              <li style={navbarStyle} className="navbar-item">
                 <a
                   href="https://drive.google.com/file/d/1puWHTjAEJFg4j-FYNOFcIBdgTg3By_zj/view?usp=sharing"
                   target="_blank"
@@ -290,10 +300,10 @@ function Homepage() {
           </div>
         </div>
         <div className="canvas-container">
-          <canvas class="bg-canvas" ref={canvasRef}></canvas>
+          <canvas className="bg-canvas" ref={canvasRef}></canvas>
           <div className="bg-container">
-            <div class="name">Yanny Patel</div>
-            <div class="current-occupation">
+            <div className="name">Yanny Patel</div>
+            <div className="current-occupation">
               <a id="about" href="#aboutMe">
                 About Me
               </a>
@@ -304,33 +314,33 @@ function Homepage() {
 
       <div className="background-graphics" id="img1"></div>
 
-      <div id="aboutMe" class="header-card">
-        <h1 id="skillsPage" class="page-header">
+      <div id="aboutMe" className="header-card">
+        <h1 id="skillsPage" className="page-header">
           Skills & Experiences
         </h1>
-        <div id="mainBox">
-          <div class="about-me-box">
-            <div class="wrapper-box">
-              <div class="description">
+        <div id="mainBox" style={{ width: screenSmall ? "100%" : "800px" }}>
+          <div className="about-me-box">
+            <div className="wrapper-box">
+              <div className="description">
                 <img style={{ height: "5vh" }} src={lfLogo} />
                 Part-time STEM Course Instructor at Logic Fusion
               </div>
             </div>
-            <div class="wrapper-box">
-              <div class="description">
+            <div className="wrapper-box">
+              <div className="description">
                 <img style={{ height: "100px" }} src={mhirjLogo} />
                 Software Developer Intern at MHI RJ
               </div>
             </div>
           </div>
 
-          <div class="about-me-box">
+          <div className="about-me-box">
             {showSkillPopup ? (
-              <div class="overlay-container">
-                <div class="overlay">
+              <div className="overlay-container">
+                <div className="overlay">
                   <div>
                     <img
-                      class="techs"
+                      className="techs"
                       src={
                         skillLogos[`../../assets/icons/${selectedSkill}.svg`]
                           .default
@@ -340,30 +350,32 @@ function Homepage() {
                     />
                   </div>
                   <div>
-                    <h2 class="skill-title">{selectedSkill.toUpperCase()}</h2>
+                    <h2 className="skill-title">
+                      {selectedSkill.toUpperCase()}
+                    </h2>
                   </div>
                   <div>
-                    <div class="skill-description">
+                    <div className="skill-description">
                       {technologyDescriptions[selectedSkill]}
                     </div>
                   </div>
 
                   <div>
-                    <button class="skill-button" onClick={closePopup}>
+                    <button className="skill-button" onClick={closePopup}>
                       Close
                     </button>
                   </div>
                 </div>
               </div>
             ) : (
-              <div class="skills">
+              <div className="skills">
                 {imageIconsList.map((img, i) => (
                   <img
                     onClick={() => {
                       setSelectedSkill(fileNames[i]);
                       setShowSkillPopup(true);
                     }}
-                    class="techs"
+                    className="techs"
                     key={i}
                     src={img.default}
                     alt={`Asset ${fileNames[i]}.svg`}
@@ -372,16 +384,16 @@ function Homepage() {
               </div>
             )}
           </div>
-          <div class="about-me-box">
-            <div class="wrapper-box">
-              <div class="description">
-                <img class="image-items" src={ibLogo} />
+          <div className="about-me-box">
+            <div className="wrapper-box">
+              <div className="description">
+                <img className="image-items" src={ibLogo} />
                 IB DP Graduate{" "}
               </div>
             </div>
-            <div class="wrapper-box">
-              <div class="description">
-                <img class="image-items" src={uniLogo} />
+            <div className="wrapper-box">
+              <div className="description">
+                <img className="image-items" src={uniLogo} />
                 4th Year Software Engineering
               </div>
             </div>
@@ -389,24 +401,24 @@ function Homepage() {
         </div>
       </div>
 
-      {/* <div className="background-graphics" id="img2"></div> */}
+      <div className="background-graphics" id="img2"></div>
 
-      <div id="projects" class="header-card">
-        <h1 id="projectsPage" class="page-header">
+      <div id="projects" className="header-card">
+        <h1 id="projectsPage" className="page-header">
           Projects
         </h1>
-        <div class="project-container">
+        <div className="project-container">
           {projects ? (
             projects.map((item) => (
-              <div key={item.name} class="project-item">
-                <div class="project-description">
-                  <div class="project-title">{item.name}</div>
-                  <div class="project-txt">{item.description}</div>
+              <div key={item.name} className="project-item">
+                <div className="project-description">
+                  <div className="project-title">{item.name}</div>
+                  <div className="project-txt">{item.description}</div>
                 </div>
-                <div class="project-img-container">
+                <div className="project-img-container">
                   <a href={item.html_url} target="_blank">
                     <img
-                      class="project-img"
+                      className="project-img"
                       src={projectImages[item.name]}
                       alt={item.name}
                     />
@@ -420,7 +432,9 @@ function Homepage() {
         </div>
       </div>
 
-      <div className="background-graphics" id="img3"></div>
+      <div className="background-graphics" id="img3">
+        <div className="contact"></div>
+      </div>
     </div>
   );
 }
