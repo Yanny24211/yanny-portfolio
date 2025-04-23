@@ -251,6 +251,8 @@ function Homepage() {
                 backgroundColor: "#fff",
                 padding: "3px",
                 borderRadius: "30px",
+                width: atTop ? "54px" : "48px",
+                height: atTop ? "54px" : "48px",
               }}
               id="profilePic"
               src={profilePic}
