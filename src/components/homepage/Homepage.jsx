@@ -139,8 +139,8 @@ function Homepage() {
 
     function animate() {
       torus.rotation.x += 0.01;
-      torus.rotation.y += 0.03;
-      torus.rotation.z += 0.08;
+      torus.rotation.y += 0.02;
+      torus.rotation.z += 0.02;
       renderer.render(scene, camera);
     }
     renderer.setAnimationLoop(animate);
@@ -167,6 +167,13 @@ function Homepage() {
   }, []);
 
   useEffect(() => {
+    window.addEventListener("scroll", () => {
+      const el = document.querySelectorAll(".background-graphics");
+      const scrollTop = window.scrollY;
+      el.forEach(
+        (bg) => (bg.style.backgroundPosition = `0px ${-scrollTop / 2}px`),
+      );
+    });
     document.querySelectorAll(".navbar-item").forEach((li) => {
       const img = li.querySelector("img");
       if (img.alt === "github-logo") {
@@ -319,10 +326,14 @@ function Homepage() {
       <div className="background-graphics" id="img1"></div>
 
       <div id="aboutMe" className="header-card">
-        <h1 id="skillsPage" className="page-header">
+        <h1
+          id="skillsPage"
+          style={{ fontSize: screenSmall ? "65px" : "35px" }}
+          className="page-header"
+        >
           Skills & Experiences
         </h1>
-        <div id="mainBox" style={{ width: screenSmall ? "100%" : "800px" }}>
+        <div id="mainBox" style={{ width: screenSmall ? "100%" : "95%" }}>
           <div className="about-me-box">
             <div className="wrapper-box">
               <div className="description">
@@ -364,7 +375,7 @@ function Homepage() {
                     </div>
                   </div>
 
-                  <div style={{ height: "120px" }}>
+                  <div style={{ height: "65px" }}>
                     <button className="skill-button" onClick={closePopup}>
                       Close
                     </button>
@@ -408,7 +419,11 @@ function Homepage() {
       <div className="background-graphics" id="img2"></div>
 
       <div id="projects" className="header-card">
-        <h1 id="projectsPage" className="page-header">
+        <h1
+          style={{ fontSize: screenSmall ? "65px" : "35px" }}
+          id="projectsPage"
+          className="page-header"
+        >
           Projects
         </h1>
         <div className="project-container">
