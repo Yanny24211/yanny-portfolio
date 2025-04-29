@@ -198,7 +198,7 @@ function Homepage() {
       const el = document.querySelectorAll(".background-graphics");
       const scrollTop = window.scrollY;
       el.forEach(
-        (bg) => (bg.style.backgroundPosition = `0px ${-scrollTop / 2}px`),
+        (bg) => (bg.style.backgroundPosition = `0px ${-scrollTop / 5}px`),
       );
     });
     document.querySelectorAll(".navbar-item").forEach((li) => {
