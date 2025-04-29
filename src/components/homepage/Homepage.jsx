@@ -88,6 +88,15 @@ function Homepage() {
     width: screenSmall ? "auto" : "68px",
     borderRadius: screenSmall ? "10px" : "100px",
   };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("animate");
+        observer.unobserve(entry.target);
+      }
+    });
+  });
+
   useEffect(() => {
     fetch("https://api.github.com/users/Yanny24211/repos")
       .then((res) => res.json())
@@ -136,6 +145,7 @@ function Homepage() {
     const torus = new THREE.Mesh(geometry, material);
 
     scene.add(torus);
+    const lastScrollY = window.scrollY;
 
     function animate() {
       torus.rotation.x += 0.01;
@@ -143,6 +153,23 @@ function Homepage() {
       torus.rotation.z += 0.02;
       renderer.render(scene, camera);
     }
+    function rotateTorus() {
+      const currentPosition = window.scrollY;
+      if (currentPosition > lastScrollY) {
+        torus.rotation.x += 0.05;
+        torus.rotation.y += 0.05;
+        torus.rotation.z += 0.05;
+        renderer.render(scene, camera);
+      } else if (currentPosition < lastScrollY) {
+        torus.rotation.x -= 0.05;
+        torus.rotation.y -= 0.05;
+        torus.rotation.z -= 0.05;
+        renderer.render(scene, camera);
+      }
+    }
+
+    window.addEventListener("scroll", rotateTorus);
+
     renderer.setAnimationLoop(animate);
     const handleResize = () => {
       const width = window.innerWidth;
@@ -226,6 +253,8 @@ function Homepage() {
   }, []);
 
   useEffect(() => {
+    const contactForm = document.querySelector(".contact");
+    observer.observe(contactForm);
     const handleScroll = () => {
       if (window.scrollY === 0) {
         setAtTop(true);
@@ -452,7 +481,53 @@ function Homepage() {
       </div>
 
       <div className="background-graphics" id="img3">
-        <div className="contact"></div>
+        <div className="contact">
+          <div id="contactHeader">Contact Me!</div>
+          <form
+            className="contact-form"
+            action="https://api.web3forms.com/submit"
+            method="POST"
+          >
+            <input
+              type="hidden"
+              name="apikey"
+              value="2fde2b53-9d34-47e9-b397-6dac7b92a617"
+            />
+            <input type="hidden" name="from_name" value="Yanny's Portfolio" />
+            <input
+              type="checkbox"
+              name="botcheck"
+              class="hidden"
+              style={{ display: "none" }}
+            />
+            <div className="contact-input">
+              <label>Email: </label>
+              <input
+                type="email"
+                name="email"
+                placeholder="jessewe@needtocook.ca"
+                required
+              />
+            </div>
+            <div className="contact-input">
+              <label>Name: </label>
+              <input type="text" name="name" placeholder="Walter " required />
+            </div>
+            <div className="contact-input">
+              <label>Subject: </label>
+              <input name="subject" placeholder="yello jello yo" />
+            </div>
+            <textarea id="contactText" name="message" required></textarea>
+            <input
+              type="hidden"
+              name="redirect"
+              value="https://web3forms.com/success"
+            ></input>
+            <button id="contactSubmit" type="submit">
+              Send
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
