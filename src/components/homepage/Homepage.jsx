@@ -355,13 +355,13 @@ function Homepage() {
       <div className="background-graphics" id="img1"></div>
 
       <div id="aboutMe" className="header-card">
-        <h1
+        {/* <h1
           id="skillsPage"
           style={{ fontSize: screenSmall ? "65px" : "35px" }}
           className="page-header"
         >
           Skills & Experiences
-        </h1>
+        </h1> */}
         <div id="mainBox" style={{ width: screenSmall ? "100%" : "95%" }}>
           <div className="about-me-box">
             <div className="wrapper-box">
