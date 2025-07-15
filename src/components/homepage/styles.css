@@ -301,6 +301,7 @@
     transition: all 0.3s ease-in-out;
  }
  .techs:hover{ 
+    cursor: pointer;
     background-color: #a3dffa;
     border-radius: 15px;
  }
