@@ -329,7 +329,7 @@ function Homepage() {
               </li>
               <li style={navbarStyle} className="navbar-item">
                 <a
-                  href="https://drive.google.com/file/d/1puWHTjAEJFg4j-FYNOFcIBdgTg3By_zj/view?usp=sharing"
+                  href="https://drive.google.com/file/d/1TLr3H-eB94XMsbpFUABeSEm3ydue2g2P/view?usp=sharing"
                   target="_blank"
                 >
                   <img src={resumeSymbolWhite} alt="resume-symbol" />
