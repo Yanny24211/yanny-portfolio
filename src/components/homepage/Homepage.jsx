@@ -63,6 +63,18 @@ const fileNames = Object.keys(skillLogos).map((path) => {
 });
 // console.log(skillLogos);
 
+//Throttling function to delay runs by scroll event listenr
+function throttle(func, delay) {
+  let last = 0;
+  return (...args) => {
+    const now = Date.now();
+    if (now - last >= delay) {
+      last = now;
+      func(...args);
+    }
+  };
+}
+
 const projectImagesJson = Object.keys(projectPictures).flatMap((path) => {
   const parts = path.split("/");
   return {
@@ -71,6 +83,17 @@ const projectImagesJson = Object.keys(projectPictures).flatMap((path) => {
 });
 const projectImages = Object.assign({}, ...projectImagesJson);
 const imageIconsList = Object.values(skillLogos);
+
+const handleScroll = () => {
+  const elements = document.querySelectorAll(".background-graphics");
+  const scrollTop = window.scrollY;
+  elements.forEach(
+    (bg) => (bg.style.backgroundPosition = `0px ${-scrollTop / 5}px`),
+  );
+};
+
+// Throttle to run at most every 16ms (~60fps)
+window.addEventListener("scroll", throttle(handleScroll, 16));
 
 // console.log(fileNames);
 function Homepage() {
@@ -194,13 +217,6 @@ function Homepage() {
   }, []);
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
-      const el = document.querySelectorAll(".background-graphics");
-      const scrollTop = window.scrollY;
-      el.forEach(
-        (bg) => (bg.style.backgroundPosition = `0px ${-scrollTop / 5}px`),
-      );
-    });
     document.querySelectorAll(".navbar-item").forEach((li) => {
       const img = li.querySelector("img");
       if (img.alt === "github-logo") {
