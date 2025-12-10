@@ -57,7 +57,7 @@
     height: 50px;  
     width: 200px; 
     font-size: 35px;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 .current-occupation > *:hover{
     letter-spacing: 1px;
@@ -187,20 +187,20 @@
     display:flex;
     flex-direction: column; 
     justify-content: space-between;
-    background-color: #40bfff;
+    background-color: #000C66;
     background-image: url('../../../public/clouds.gif'); 
     background-repeat: repeat ;
     background-position: center center ;  
 }
 
 .about-me-box{
-    background-color: azure;
+    background-color: rgba(100, 100, 100, 0.57);
     display: flex;
     flex-direction: column;
     width: 500px;
     height: 600px;
     margin: 20px;
-    border: solid 8px black;
+    /* border: solid 8px black; */
     border-radius: 10px;
     overflow: auto;
 }
@@ -299,11 +299,13 @@
     margin: 5px;
     padding: 5px; 
     transition: all 0.3s ease-in-out;
- }
- .techs:hover{ 
-    cursor: pointer;
-    background-color: #a3dffa;
     border-radius: 15px;
+ }
+ .techs:hover{
+    border-radius: 30px;
+    cursor: pointer;
+    background-color: rgba(73, 192, 246, 0.9);
+    
  }
  .overlay-container{
     height: 100%;
@@ -315,7 +317,7 @@
     height: 90%;
     margin: 10px; 
     border-radius: 10px; 
-    background-color: #49c0f6;
+    background-color: rgba(73, 192, 246, 0.9);
     display:flex;
     flex-direction: column;
     justify-content: center;
@@ -367,7 +369,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #49c0f6;
+    background-color: rgba(73, 192, 246, 0.9);
     border-radius: 10px;
     margin: 20px;
     height: 50%;
@@ -459,6 +461,7 @@
     animation-timeline: scroll(); */
 }
 #img1{
+    height: 30%;
     background-size: cover; 
     background-image: url("../../assets/image.png");
 }
