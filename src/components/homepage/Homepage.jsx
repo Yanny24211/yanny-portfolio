@@ -120,13 +120,13 @@ function Homepage() {
     });
   });
 
+  // to add new github projects to portfolio, add topic "portfolio" to the repo and add screenshot in /assets/projects with exact repo name
   useEffect(() => {
     fetch("https://api.github.com/users/Yanny24211/repos")
       .then((res) => res.json())
       .then((data) => {
         const portfolioItems = data.filter((item) => item.topics[0]);
         setProjects(portfolioItems);
-        console.log(portfolioItems);
       });
   }, []);
 
