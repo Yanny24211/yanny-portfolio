@@ -453,7 +453,11 @@ function Homepage() {
             </div>
             <div className="wrapper-box">
               <div className="description">
-                <img className="image-items" src={uniLogo} />
+                <img
+                  className="image-items"
+                  style={{ borderRadius: "10px" }}
+                  src={uniLogo}
+                />
                 4th Year Software Engineering
               </div>
             </div>
