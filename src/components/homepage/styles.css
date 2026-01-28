@@ -275,7 +275,7 @@
     align-items: center;
     margin: 30px;
     font-size: 25px;
-    color: black;
+    color: whitesmoke;
     font-weight: bold;
     text-align: center;
 }
@@ -304,7 +304,8 @@
  .techs:hover{
     border-radius: 30px;
     cursor: pointer;
-    background-color: rgba(73, 192, 246, 0.9);
+    background-color: whitesmoke;
+    /* background-color: rgba(0, 0, 55, 0.9); */
     
  }
  .overlay-container{
@@ -317,7 +318,7 @@
     height: 90%;
     margin: 10px; 
     border-radius: 10px; 
-    background-color: rgba(73, 192, 246, 0.9);
+    background-color: rgba(0, 0, 55, 0.9);
     display:flex;
     flex-direction: column;
     justify-content: center;
@@ -331,13 +332,13 @@
     align-items: center;
  }
  .skill-description{
-    color:black;
+    color: whitesmoke;
     font-family: monospace;
     margin: 0px 15px; 
     font-size: 16px;
  }
  .skill-title{
-    color:black;
+    color: whitesmoke;
     font-family: monospace;
     margin: 0px 15px; 
     font-size: 35px; 
@@ -369,7 +370,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(73, 192, 246, 0.9);
+    background-color: rgba(0, 0, 55, 0.9);
     border-radius: 10px;
     margin: 20px;
     height: 50%;
@@ -461,12 +462,12 @@
     animation-timeline: scroll(); */
 }
 #img1{
-    height: 30%;
+    height: 15%;
     background-size: cover; 
     background-image: url("../../assets/image.png");
 }
 #img2{
-    height: 25%;
+    height: 15%;
     background-image: url("../../assets/backgroundGraphic1.jpg");
     background-repeat: repeat;
 }
