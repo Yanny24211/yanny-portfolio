@@ -81,7 +81,14 @@ const projectImagesJson = Object.keys(projectPictures).flatMap((path) => {
     [parts[parts.length - 1].slice(0, -4)]: projectPictures[path].default,
   };
 });
-const projectImages = Object.assign({}, ...projectImagesJson);
+const projectImagesObj = Object.assign({}, ...projectImagesJson);
+const projectImages = Object.fromEntries(
+  Object.entries(projectImagesObj).map(([key, value]) => [
+    key.toLowerCase(),
+    value,
+  ]),
+);
+console.log(projectImages);
 const imageIconsList = Object.values(skillLogos);
 
 const handleScroll = () => {
@@ -487,7 +494,7 @@ function Homepage() {
                   <a href={item.html_url} target="_blank">
                     <img
                       className="project-img"
-                      src={projectImages[item.name]}
+                      src={projectImages[item.name.toLowerCase()]}
                       alt={item.name}
                     />
                   </a>
