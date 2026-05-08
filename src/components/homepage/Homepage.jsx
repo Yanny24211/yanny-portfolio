@@ -389,7 +389,7 @@ function Homepage() {
           <div className="about-me-box">
             <div className="wrapper-box">
               <div className="description">
-                <img style={{ height: "5vh" }} src={lfLogo} />
+                <img style={{ height: "70px" }} src={lfLogo} />
                 Part-time STEM Course Instructor at Logic Fusion
               </div>
             </div>
@@ -465,7 +465,7 @@ function Homepage() {
                   style={{ borderRadius: "10px" }}
                   src={uniLogo}
                 />
-                4th Year Software Engineering
+                Software Engineering (BEng)
               </div>
             </div>
           </div>
